@@ -1,0 +1,240 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red24\green24\blue24;\red255\green255\blue255;\red98\green98\blue98;
+\red15\green112\blue1;\red245\green245\blue245;\red0\green0\blue255;\red131\green0\blue165;\red144\green1\blue18;
+\red86\green65\blue25;\red19\green85\blue52;\red0\green0\blue248;\red41\green132\blue37;}
+{\*\expandedcolortbl;;\cssrgb\c12157\c12157\c12157;\cssrgb\c100000\c100000\c100000;\cssrgb\c45882\c45882\c45882;
+\cssrgb\c0\c50196\c0;\cssrgb\c96863\c96863\c96863;\cssrgb\c0\c0\c100000;\cssrgb\c59216\c13725\c70588;\cssrgb\c63922\c8235\c8235;
+\cssrgb\c41569\c32157\c12941;\cssrgb\c6667\c40000\c26667;\cssrgb\c1569\c19216\c98039;\cssrgb\c19216\c57647\c19216;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa260\partightenfactor0
+
+\f0\fs22 \cf2 \cb3 \expnd0\expndtw0\kerning0
+1) Pakete installieren und OpenAI-API-Key laden\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Pakete\'a0installieren\cf2 \cb1 \
+\
+\cf5 \cb6 #\'a0Schnittstelle\'a0zu\'a0OpenAI-Modellen\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb6 !\cf2 pip\'a0-q\'a0install\'a0langchain_openai\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Zus\'e4tzliche\'a0LangChain-Komponenten\'a0(Loader,\'a0Vectorstores)\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb6 !\cf2 pip\'a0-q\'a0install\'a0langchain-community\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0PDF-Parser\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb6 !\cf2 pip\'a0-q\'a0install\'a0pypdf\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0In-Memory-Vektorstore\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb6 !\cf2 pip\'a0-q\'a0install\'a0docarray\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Tokeenizer\'a0f\'fcr\'a0OpenAI-Modelle\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb6 !\cf2 pip\'a0-q\'a0install\'a0tiktoken\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0OpenAI-API-Key\'a0laden\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0google.colab\'a0\cf8 import\cf2 \'a0userdata\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 OPENAI_API_KEY\'a0=\'a0userdata.get(\cf9 'apikey_ab'\cf2 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Bricht\'a0ab,\'a0falls\'a0kein\'a0API-Key\'a0vorhanden\'a0ist\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 assert\cf2 \'a0OPENAI_API_KEY\cb1 \
+\
+\pard\pardeftab720\sa260\partightenfactor0
+\cf2 \cb3 2) PDF aus GitHub laden\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Bibliothek\'a0f\'fcr\'a0HTTP-Anfragen\'a0(Dateien,\'a0APIs\'a0etc.)\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 import\cf2 \'a0requests\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0LangChain-Loader\'a0f\'fcr\'a0PDFs\cf2 \cb1 \
+\cf5 \cb6 #\'a0Nutzt\'a0pypdf,\'a0um\'a0Seiten\'a0auszulesen\'a0und\'a0in\'a0Dokument-Objekte\'a0(Text\'a0+\'a0Metadaten)\'a0zu\'a0konvertieren\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_community.document_loaders\'a0\cf8 import\cf2 \'a0PyPDFLoader\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0GitHub\'a0Raw-Link\'a0zur\'a0PDF\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 url\'a0=\'a0\cf9 "https://raw.githubusercontent.com/x8bean/Machine-Learning-Assignment/main/Wissensquelle.pdf"\cf2 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Download\'a0+\'a0Speichern\'a0als\'a0tempor\'e4re\'a0Datei\'a0in\'a0Colab\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 pdf_path\'a0=\'a0\cf9 "/content/tmp.pdf"\cf2 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0\'d6ffnet\'a0die\'a0Zieldatei\'a0im\'a0Schreib-/Bin\'e4rmodus\'a0("wb"),\'a0l\'e4dt\'a0die\'a0PDF\'a0von\'a0der\'a0angegebenen\'a0URL\'a0herunter\'a0(mit\'a030\'a0Sekunden\'a0Timeout)\'a0und\'a0schreibt\'a0den\'a0Inhalt\'a0direkt\'a0in\'a0diese\'a0Datei\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 with\cf2 \'a0\cf10 open\cf2 (pdf_path,\'a0\cf9 "wb"\cf2 )\'a0\cf8 as\cf2 \'a0f:\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 \'a0\'a0\'a0\'a0f.write(requests.get(url,\'a0timeout=\cf11 30\cf2 ).content)\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0PDF\'a0in\'a0LangChain-Dokumente\'a0laden\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 loader\'a0=\'a0PyPDFLoader(pdf_path)\cb1 \
+\cb6 page_docs\'a0=\'a0loader.load()\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0\'dcberpr\'fcfung,\'a0ob\'a0die\'a0PDF\'a0die\'a0Vorgabe\'a0von\'a0\uc0\u8804 \'a010\'a0Seiten\'a0erf\'fcllt\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 assert\cf2 \'a0\cf10 len\cf2 (page_docs)\'a0<=\'a0\cf11 10\cf2 ,\'a0\cf7 f\cf9 "PDF\'a0hat\'a0\cf2 \{\cf10 len\cf2 (page_docs)\}\cf9 \'a0Seiten\'a0(>10)."\cf2 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Anzahl\'a0der\'a0Seiten\'a0wird\'a0ausgegeben\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb6 print\cf2 (\cf9 "Seiten\'a0geladen:"\cf2 ,\'a0\cf10 len\cf2 (page_docs))\cb1 \
+\
+\pard\pardeftab720\sa260\partightenfactor0
+\cf2 \cb3 3) Chunking\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Teilt\'a0Texte\'a0rekursiv\'a0anhand\'a0von\'a0Trennzeichen\'a0(Absatz,\'a0Satz,\'a0Wort)\'a0in\'a0Chunks\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain.text_splitter\'a0\cf8 import\cf2 \'a0RecursiveCharacterTextSplitter\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Initialisiert\'a0den\'a0Textsplitter\'a0mit\'a0Regeln\'a0f\'fcr\'a0Gr\'f6\'dfe,\'a0\'dcberlappung\'a0und\'a0Trennzeichen-Priorit\'e4t\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 splitter\'a0=\'a0RecursiveCharacterTextSplitter(\cb1 \
+\cb6 \'a0\'a0\'a0\'a0chunk_size=\cf11 800\cf2 ,\'a0\cf5 #\'a0Maximale\'a0Zeichen\'a0pro\'a0Chunk\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0chunk_overlap=\cf11 120\cf2 ,\'a0\cf5 #\'a0\'dcberlappung\'a0zwischen\'a0Chunks\'a0(verhindert\'a0Informationsverlust)\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0separators=[\cf9 "\\n\\n"\cf2 ,\'a0\cf9 "\\n"\cf2 ,\'a0\cf9 "."\cf2 ,\'a0\cf9 "\'a0"\cf2 ,\'a0\cf9 ""\cf2 ]\cb1 \
+\cb6 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Wendet\'a0das\'a0Chunking\'a0auf\'a0alle\'a0Seiten-Dokumente\'a0an,\'a0erzeugt\'a0Liste\'a0von\'a0kleineren\'a0Document-Objekten\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 chunks\'a0=\'a0splitter.split_documents(page_docs)\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Anzahl\'a0der\'a0erzeugten\'a0Chunks\'a0wird\'a0ausgegeben\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb6 print\cf2 (\cf9 "Chunks\'a0erstellt:"\cf2 ,\'a0\cf10 len\cf2 (chunks))\cb1 \
+\
+\pard\pardeftab720\sa260\partightenfactor0
+\cf2 \cb3 4) Embedding\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Schnittstelle\'a0zu\'a0OpenAI-Embedding-API,\'a0um\'a0Text\'a0in\'a0Embeddings\'a0zu\'a0verwandeln,\'a0die\'a0den\'a0Sinn\'a0des\'a0Textes\'a0darstellen\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_openai\'a0\cf8 import\cf2 \'a0OpenAIEmbeddings\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0In-Memory-Vektorstore,\'a0speichert\'a0Embedding-Vektoren\'a0und\'a0f\'fchrt\'a0\'c4hnlichkeitssuche\'a0durch\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_community.vectorstores\'a0\cf8 import\cf2 \'a0DocArrayInMemorySearch\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Erstellt\'a0Embedding-Funktion,\'a0die\'a0bei\'a0Aufruf\'a0OpenAI-API\'a0f\'fcr\'a0Vektorisierung\'a0nutzt\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 embeddings\'a0=\'a0OpenAIEmbeddings(\cb1 \
+\cb6 \'a0\'a0\'a0\'a0model=\cf9 "text-embedding-3-small"\cf2 ,\'a0\cf5 #\'a0Modellauswahl\'a0f\'fcr\'a0die\'a0Umwandlung\'a0von\'a0Text\'a0in\'a0Embeddings\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0openai_api_key=OPENAI_API_KEY\'a0\'a0\'a0\cf5 #\'a0API-Schl\'fcssel\'a0f\'fcr\'a0die\'a0Authentifizierung\'a0bei\'a0OpenAI\cf2 \cb1 \
+\cb6 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Wandelt\'a0alle\'a0Chunks\'a0in\'a0Embeddings\'a0um\'a0und\'a0speichert\'a0sie\'a0im\'a0Vektorstore\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 vectorstore\'a0=\'a0DocArrayInMemorySearch.from_documents(chunks,\'a0embedding=embeddings)\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Erzeugt\'a0Retriever,\'a0der\'a0f\'fcr\'a0eine\'a0Suchanfrage\'a0die\'a0Top-4\'a0relevantesten\'a0Chunks\'a0ausgibt\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 retriever\'a0=\'a0vectorstore.as_retriever(\cb1 \
+\cb6 \'a0\'a0\'a0\'a0search_type=\cf9 "mmr"\cf2 ,\'a0\cf5 #\'a0Maximal\'a0Marginal\'a0Relevance:\'a0bedeutet,\'a0dass\'a0nicht\'a0nur\'a0die\'a0relevantesten\'a0Abschnitte\'a0ausgew\'e4hlt\'a0werden,\'a0sondern\'a0auch\'a0m\'f6glichst\'a0unterschiedliche,\'a0um\'a0Wiederholungen\'a0zu\'a0vermeiden\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0search_kwargs=\{\cf9 "k"\cf2 :\'a0\cf11 4\cf2 ,\'a0\cf9 "fetch_k"\cf2 :\'a0\cf11 20\cf2 \}\'a0\cf5 #\'a0k=4:\'a0gibt\'a0die\'a04\'a0besten\'a0Treffer\'a0zur\'fcck\'a0(werden\'a0sp\'e4ter\'a0ins\'a0Prompt\'a0eingef\'fcgt);\'a0fetch_k=20:\'a0zieht\'a0zuerst\'a0die\'a020\'a0besten\'a0Kandidaten,\'a0bevor\'a0daraus\'a0die\'a04\'a0ausgew\'e4hlt\'a0werden\cf2 \cb1 \
+\cb6 )\cb1 \
+\
+\pard\pardeftab720\sa260\partightenfactor0
+\cf2 \cb3 5) Implementierung des RAG-Systems\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Schnittstelle\'a0zu\'a0OpenAI-Chat-LLMs\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_openai\'a0\cf8 import\cf2 \'a0ChatOpenAI\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Generiert\'a0strukturierte\'a0Prompts\'a0aus\'a0Template-Texten\'a0mit\'a0Platzhaltern\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain.prompts\'a0\cf8 import\cf2 \'a0ChatPromptTemplate\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Wandelt\'a0LLM-Ausgabe\'a0in\'a0reinen\'a0Text-String\'a0um\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_core.output_parsers\'a0\cf8 import\cf2 \'a0StrOutputParser\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Um\'a0mehrere\'a0Verarbeitungsschritte\'a0miteinander\'a0zu\'a0verbinden:\cf2 \cb1 \
+\cf5 \cb6 #\'a0RunnableParallel:\'a0f\'fchrt\'a0mehrere\'a0Aufgaben\'a0gleichzeitig\'a0aus\cf2 \cb1 \
+\cf5 \cb6 #\'a0RunnablePassthrough:\'a0gibt\'a0die\'a0Eingabe\'a0unver\'e4ndert\'a0weiter\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb6 from\cf2 \'a0langchain_core.runnables\'a0\cf8 import\cf2 \'a0RunnableParallel,\'a0RunnablePassthrough\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Prompt-Template\'a0mit\'a0Platzhaltern\'a0f\'fcr\'a0Kontext\'a0und\'a0Frage\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 template\'a0=\'a0\cf9 """\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf9 \cb6 Beantworte\'a0die\'a0Frage\'a0basierend\'a0auf\'a0dem\'a0Kontext.\cf2 \cb1 \
+\cf9 \cb6 Wenn\'a0Du\'a0die\'a0Frage\'a0nicht\'a0beantworten\'a0kannst,\'a0antworte\'a0"Ich\'a0wei\'df\'a0es\'a0nicht".\cf2 \cb1 \
+\
+\cf9 \cb6 Context:\'a0\{context\}\cf2 \cb1 \
+\
+\cf9 \cb6 Question:\'a0\{question\}\cf2 \cb1 \
+\cf9 \cb6 """\cf2 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Erzeugt\'a0Prompt-Objekt,\'a0das\'a0bei\'a0Aufruf\'a0Platzhalter\'a0durch\'a0echte\'a0Werte\'a0ersetzt\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 prompt\'a0=\'a0ChatPromptTemplate.from_template(template)\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Initialisiert\'a0LLM\'a0mit\'a0Parametern\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 llm\'a0=\'a0ChatOpenAI(\cb1 \
+\cb6 \'a0\'a0\'a0\'a0model=\cf9 "gpt-4o-mini"\cf2 ,\'a0\cf5 #\'a0Chat-Modellauswahl\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0openai_api_key=OPENAI_API_KEY,\'a0\cf5 #\'a0API-Schl\'fcssel\'a0f\'fcr\'a0die\'a0Authentifizierung\'a0bei\'a0OpenAI\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0temperature=\cf11 0.2\cf2 ,\'a0\cf5 #\'a0Zuf\'e4lligkeit\'a0der\'a0Ausgabe\'a0steuern\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0max_tokens=\cf11 200\cf2 \'a0\cf5 #\'a0Antwortl\'e4nge\'a0begrenzen\cf2 \cb1 \
+\cb6 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Erstellt\'a0Parser,\'a0der\'a0die\'a0reine\'a0Textausgabe\'a0extrahiert\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 parser\'a0=\'a0StrOutputParser()\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Kombiniert\'a0Retrieval\'a0und\'a0Frage\'a0in\'a0einer\'a0parallelen\'a0Struktur\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 setup\'a0=\'a0RunnableParallel(\cb1 \
+\cb6 \'a0\'a0\'a0\'a0context=retriever,\'a0\cf5 #\'a0F\'fchrt\'a0semantische\'a0Suche\'a0aus\'a0und\'a0liefert\'a0Chunks\'a0als\'a0Kontext\cf2 \cb1 \
+\cb6 \'a0\'a0\'a0\'a0question=RunnablePassthrough()\'a0\cf5 #\'a0Leitet\'a0die\'a0Frage\'a0unver\'e4ndert\'a0weiter\cf2 \cb1 \
+\cb6 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Verkn\'fcpft\'a0alle\'a0Schritte:\'a0Retrieval\'a0-->\'a0Prompt\'a0-->\'a0LLM\'a0-->\'a0Ausgabe\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb6 chain\'a0=\'a0setup\'a0|\'a0prompt\'a0|\'a0llm\'a0|\'a0parser\cb1 \
+\
+\pard\pardeftab720\sa260\partightenfactor0
+\cf2 \cb3 6) Beispiel\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Beispielabfrage\'a01\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb6 print\cf12 (\cf2 chain.invoke\cf13 (\cf9 "Wovon\'a0handelt\'a0das\'a0Dokument?"\cf13 )\cf12 )\cf0 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 #\'a0Beispielabfrage\'a02\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb6 print\cf12 (\cf2 chain.invoke\cf13 (\cf9 "Welche\'a0Unterschiede\'a0gab\'a0es\'a0bei\'a0den\'a0Zuschauerzahlen\'a0zwischen\'a0M\'e4nnern\'a0und\'a0Frauen\'a0w\'e4hrend\'a0der\'a0WM\'a02014?"\cf13 )\cf12 )\cf0 \cb1 \
+}
